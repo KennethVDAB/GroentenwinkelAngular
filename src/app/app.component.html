@@ -1,8 +1,8 @@
 <p>Groente:</p>
 <select name="groente" id="groente" [(ngModel)]="geselecteerdeGroente">
   <option>--- maak uw keuze ---</option>
-  @for (groente of alleGroenten; track groente.naam){
-    <option>{{groente.naam}} ({{groente.prijs}}/{{groente.eenheid}})</option>
+  @for (groente of alleGroenten; track groente.naam) {
+    <option>{{ groente.naam }} ({{ groente.prijs }}/{{ groente.eenheid }})</option>
   }
 </select>
 
@@ -15,20 +15,28 @@
 <table class="table">
   <thead>
   <tr>
-    <th scope="col">Winkel</th>
     <th scope="col">Groente</th>
     <th scope="col">Aantal</th>
     <th scope="col">Prijs</th>
-    <th scope="col">currency</th>
-    <th scope="col">TotaalPrijs</th>
+    <th scope="col">Te betalen</th>
   </tr>
   </thead>
 
   <tbody>
-  @for (groente of groentenMandje; track groente.naam){
-    <td>{{ groente.naam}}</td>
-    <td>{{ groente.prijs}}</td>
-    <td>{{ aantal * groente.prijs}}</td>
-  }
+    @for (groente of groentenMandje; track groente.naam) {
+      <tr>
+        <td>{{ groente.naam }}</td>
+        <td>{{ groente.aantal }}</td>
+        <td>€{{ groente.prijs }}</td>
+        <td>€{{ groente.aantal * groente.prijs }}</td>
+        <td (click)="rijVerwijderen(groente)"><img src="assets/vuilbak.png" alt="vuilbak icoon"></td>
+      </tr>
+    }
+  <tr>
+    <b>
+      <td>Totaal:</td>
+      <td>€{{ berekenTotaal().toFixed(2) }}</td>
+    </b>
+  </tr>
   </tbody>
 </table>
